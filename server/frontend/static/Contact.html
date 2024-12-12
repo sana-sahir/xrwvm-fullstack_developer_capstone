@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dealerships - About Us</title>
+    <title>Dealerships - Contact Us</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/bootstrap.min.css">
     <style>
@@ -49,34 +49,35 @@
             font-size: 2.5rem;
         }
 
-        .card {
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .contact-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 2rem;
             border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .card img {
-            border-radius: 8px 8px 0 0;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card .title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-body {
+        .contact-container h2 {
+            color: darkturquoise;
+            margin-bottom: 1.5rem;
             text-align: center;
-            padding: 1rem;
         }
 
-        .team-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 1rem;
+        .contact-container p {
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .contact-container a {
+            color: darkturquoise;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .contact-container a:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -96,13 +97,8 @@
                 font-size: 2rem;
             }
 
-            .card img {
-                height: 150px;
-            }
-
-            .team-container {
-                flex-direction: column;
-                align-items: center;
+            .contact-container {
+                padding: 1rem;
             }
         }
     </style>
@@ -120,10 +116,10 @@
                         <a class="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/about">About Us</a>
+                        <a class="nav-link" href="/about">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact Us</a>
+                        <a class="nav-link active" href="/contact">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -132,45 +128,28 @@
 
     <div class="container">
         <div class="banner">
-            <h1>About Us</h1>
-            <p>Welcome to Best Cars dealership, home to the best cars in North America. We deal in domestic and imported cars at reasonable prices.</p>
+            <h1>Contact Us</h1>
+            <p>Got questions? Complaints? Or just want to argue about who the real star of Family Guy is? Get in touch!</p>
         </div>
 
-        <div class="team-container">
-            <div class="card" style="width: 30%;">
-                <img class="card-img-top" src="/static/images/Peter_Griffin.png" alt="Card image">
-                <div class="card-body">
-                    <p class="title">Peter Griffin</p>
-                    <p>CEO</p>
-                    <p class="card-text">Peter is the driving force behind our dealership, ensuring top-notch service for all customers.</p>
-                    <p>peter.griffin@example.com</p>
-                </div>
-            </div>
+        <div class="contact-container">
+            <h2>We’d Love to Hear from You!</h2>
+            <p>Whether you’re here to buy a car, complain about our "unique" pricing strategies, or just confirm that Peter Griffin actually works here, we’re ready to listen (and occasionally roll our eyes).</p>
+            
+            <p><strong>Email:</strong> If you’re the kind of person who still uses email, shoot us a message at <a href="mailto:peter.griffin@example.com">peter.griffin@example.com</a>. No promises that Peter won’t mark it as spam.</p>
 
-            <div class="card" style="width: 30%;">
-                <img class="card-img-top" src="/static/images/Glenn_Quagmire.png" alt="Card image">
-                <div class="card-body">
-                    <p class="title">Glenn Quagmire</p>
-                    <p>Sales Manager</p>
-                    <p class="card-text">Glenn is known for his friendly demeanor and exceptional sales skills, making him a favorite among customers.</p>
-                    <p>glenn.quagmire@example.com</p>
-                </div>
-            </div>
+            <p><strong>Phone:</strong> Yes, we still have a landline. Call us at <a href="tel:+123456789">+1-234-567-89</a> and listen to Quagmire try his best to sound professional. Giggety.</p>
 
-            <div class="card" style="width: 30%;">
-                <img class="card-img-top" src="/static/images/joe.jpg" alt="Card image">
-                <div class="card-body">
-                    <p class="title">Joe Swanson</p>
-                    <p>Customer Support</p>
-                    <p class="card-text">Joe leads our support team, ensuring every customer leaves with a smile.</p>
-                    <p>joe.swanson@example.com</p>
-                </div>
-            </div>
+            <p><strong>Visit Us:</strong> Swing by our dealership to meet Joe Swanson in person. He’ll make sure you’re taken care of… even if it means showing you the door.</p>
+
+            <p><strong>Carrier Pigeon:</strong> For all you old-schoolers out there, feel free to send us a bird. Just make sure it doesn’t poop on Peter’s car.</p>
+
+            <p>Seriously, though. We’re here for you (even if we roll our eyes behind the scenes). Get in touch and let’s make your car dreams a reality!</p>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2024 Best Cars Dealership. All rights reserved.</p>
+        <p>&copy; 2024 Best Cars Dealership. All rights reserved. Powered by sarcasm and a bit of Family Guy wisdom.</p>
     </footer>
 
     <script src="/static/bootstrap.bundle.min.js"></script>
