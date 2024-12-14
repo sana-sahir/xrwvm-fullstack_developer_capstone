@@ -13,7 +13,8 @@ from django.contrib.auth import login, authenticate
 import logging
 import json
 from django.views.decorators.csrf import csrf_exempt
-# from .populate import initiate
+from .models import CarMake, CarModel
+from .populate import initiate
 from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
@@ -84,8 +85,19 @@ def registration(request):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-# def get_dealerships(request):
-# ...
+def get_dealerships(request):
+    try:
+        # Fetch all dealerships from the database
+        dealerships = Dealership.objects.all()
+        
+        # Convert the dealerships queryset to a list of dictionaries (serializing)
+        dealerships_list = list(dealerships.values())
+        
+        # Return the dealerships as a JSON response
+        return JsonResponse({"status": 200, "dealerships": dealerships_list})
+    
+    except Exception as e:
+        return JsonResponse({"status": 500, "message": str(e)})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
 def get_dealer_reviews(request, dealer_id):
@@ -112,5 +124,73 @@ def get_dealer_details(request, dealer_id):
         return JsonResponse({"status":400,"message":"Bad Request"})
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+def add_review(request):
+    # Check if the request is a POST request
+    if request.method == 'POST':
+        try:
+            # Extract data from the POST request
+            name = request.POST.get('name')
+            dealership_id = request.POST.get('dealership')
+            review_text = request.POST.get('review')
+            purchase = request.POST.get('purchase') == 'true'  # Convert to boolean
+            purchase_date = request.POST.get('purchase_date')
+            car_make = request.POST.get('car_make')
+            car_model = request.POST.get('car_model')
+            car_year = request.POST.get('car_year')
+
+            # Parse the purchase date if it's provided
+            if purchase_date:
+                purchase_date = parse_datetime(purchase_date)
+            else:
+                purchase_date = None
+
+            # Fetch the dealer object using the dealership ID
+            dealer = get_object_or_404(Dealer, id=dealership_id)
+
+            # Create a new Review object
+            review = Review.objects.create(
+                dealership=dealer,
+                name=name,
+                review=review_text,
+                purchase=purchase,
+                purchase_date=purchase_date,
+                car_make=car_make,
+                car_model=car_model,
+                car_year=car_year
+            )
+
+            # Return a successful response
+            return JsonResponse({
+                "status": 201,
+                "message": "Review added successfully",
+                "review": {
+                    "id": review.id,
+                    "name": review.name,
+                    "dealership": review.dealership.id,
+                    "review": review.review,
+                    "purchase": review.purchase,
+                    "purchase_date": review.purchase_date,
+                    "car_make": review.car_make,
+                    "car_model": review.car_model,
+                    "car_year": review.car_year
+                }
+            })
+
+        except Exception as e:
+            # Handle errors and send back a failed response
+            return JsonResponse({"status": 400, "message": str(e)})
+
+    else:
+        # Return error if the method is not POST
+        return JsonResponse({"status": 400, "message": "Invalid request method"})
+
+def get_cars(request):
+    count = CarMake.objects.filter().count()
+    print(count)
+    if(count == 0):
+        initiate()
+    car_models = CarModel.objects.select_related('car_make')
+    cars = []
+    for car_model in car_models:
+        cars.append({"CarModel": car_model.name, "CarMake": car_model.car_make.name})
+    return JsonResponse({"CarModels":cars})
